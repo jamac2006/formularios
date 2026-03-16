@@ -36,6 +36,21 @@
         .size-badge {
             background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
         }
+        .upload-zone {
+            border: 3px dashed rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+        .upload-zone:hover, .upload-zone.dragover {
+            border-color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .file-item {
+            animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body class="text-gray-800">
@@ -84,8 +99,8 @@
                     <p class="font-semibold text-sm mt-2">Texto Personalizado</p>
                 </div>
                 <div class="bg-white p-4 rounded-xl shadow text-center">
-                    <span class="text-3xl">🚀</span>
-                    <p class="font-semibold text-sm mt-2">Entrega Rápida</p>
+                    <span class="text-3xl">📎</span>
+                    <p class="font-semibold text-sm mt-2">Sube tu Archivo</p>
                 </div>
                 <div class="bg-white p-4 rounded-xl shadow text-center">
                     <span class="text-3xl">💬</span>
@@ -102,7 +117,6 @@
                 <span class="gradient-card text-white px-4 py-2 rounded-full">Catálogo de Talonarios</span>
             </h3>
 
-            <!-- Size Categories -->
             <div class="space-y-12">
 
                 <!-- 1/4 Carta -->
@@ -112,7 +126,6 @@
                     </div>
                     <div class="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         
-                        <!-- Product Item -->
                         <div class="border-2 border-gray-100 rounded-xl p-4 card-hover transition-all cursor-pointer hover:border-purple-400" onclick="selectProduct('1/4 Carta - Original', '100 hojas solo Original Blanca', 6990)">
                             <div class="flex justify-between items-start mb-2">
                                 <span class="font-bold text-gray-800">Original</span>
@@ -414,6 +427,27 @@
                         </div>
                     </div>
 
+                    <!-- Subida de Archivos -->
+                    <div class="bg-white/10 rounded-2xl p-6">
+                        <h4 class="font-bold text-lg mb-4 flex items-center gap-2">📎 Adjuntar Archivo (Opcional)</h4>
+                        <p class="text-sm text-white/80 mb-4">¿Tienes un formato o diseño? Súbelo aquí y envíalo por WhatsApp.</p>
+                        
+                        <div class="upload-zone rounded-xl p-6 text-center cursor-pointer" id="uploadZone" onclick="document.getElementById('fileInput').click()">
+                            <input type="file" id="fileInput" multiple accept=".jpg,.jpeg,.png,.gif,.pdf,.doc,.docx,.xls,.xlsx" class="hidden" onchange="handleFiles(this.files)">
+                            <div id="uploadContent">
+                                <svg class="mx-auto h-16 w-16 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                                </svg>
+                                <p class="mt-3 text-white font-medium">Haz clic para subir o arrastra tus archivos aquí</p>
+                                <p class="mt-1 text-sm text-white/60">Imágenes, PDF, Word o Excel (Máx. 10MB cada uno)</p>
+                                <p class="mt-2 text-xs text-yellow-300">⚠️ Los archivos se enviarán por WhatsApp después de hacer clic en "Enviar Pedido"</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Lista de archivos seleccionados -->
+                        <div id="fileList" class="mt-4 space-y-2"></div>
+                    </div>
+
                     <!-- Resumen del Pedido -->
                     <div class="bg-white/10 rounded-2xl p-6">
                         <h4 class="font-bold text-lg mb-4 flex items-center gap-2">💰 Resumen</h4>
@@ -444,7 +478,7 @@
                     </button>
                     
                     <p class="text-xs text-center text-white/70 mt-4">
-                        🔒 Tus datos están seguros. Al enviar, se abrirá WhatsApp con tu pedido y se generará una copia para tu correo y el nuestro.
+                        🔒 Tus datos están seguros. Al enviar, se abrirá WhatsApp con tu pedido. <strong>⚠️ No olvides adjuntar tus archivos en el chat de WhatsApp.</strong>
                     </p>
                 </form>
             </div>
@@ -510,6 +544,8 @@
 
         const ADMIN_PHONE = "56978472489";
         const ADMIN_EMAIL = "fta.tecno@gmail.com";
+        const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+        let selectedFiles = [];
 
         // Función para seleccionar producto desde el catálogo
         function selectProduct(productName, specs, price) {
@@ -517,7 +553,6 @@
             updateSummary();
             document.getElementById('order-section').scrollIntoView({ behavior: 'smooth' });
             
-            // Efecto visual de selección
             const btn = event.target.closest('button');
             if(btn) {
                 btn.classList.add('bg-purple-300', 'scale-95');
@@ -543,6 +578,121 @@
             return '$' + price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
         }
 
+        // Manejar archivos seleccionados
+        function handleFiles(files) {
+            const fileList = document.getElementById('fileList');
+            const uploadContent = document.getElementById('uploadContent');
+            
+            for (let file of files) {
+                // Validar tamaño
+                if (file.size > MAX_FILE_SIZE) {
+                    alert(`⚠️ El archivo "${file.name}" excede el tamaño máximo de 10MB.`);
+                    continue;
+                }
+                
+                // Validar tipo
+                const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
+                if (!validTypes.includes(file.type) && !file.name.match(/\.(jpg|jpeg|png|gif|pdf|doc|docx|xls|xlsx)$/i)) {
+                    alert(`⚠️ El archivo "${file.name}" no es un formato válido. Usa: Imágenes, PDF, Word o Excel.`);
+                    continue;
+                }
+                
+                // Verificar duplicados
+                if (selectedFiles.some(f => f.name === file.name && f.size === file.size)) {
+                    alert(`⚠️ El archivo "${file.name}" ya fue seleccionado.`);
+                    continue;
+                }
+                
+                selectedFiles.push(file);
+            }
+            
+            renderFileList();
+            
+            // Cambiar mensaje del upload zone si hay archivos
+            if (selectedFiles.length > 0) {
+                uploadContent.innerHTML = `
+                    <svg class="mx-auto h-16 w-16 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <p class="mt-3 text-white font-medium">${selectedFiles.length} archivo(s) seleccionado(s)</p>
+                    <p class="mt-1 text-sm text-white/60">Haz clic para agregar más o enviar por WhatsApp</p>
+                `;
+            }
+        }
+
+        // Renderizar lista de archivos
+        function renderFileList() {
+            const fileList = document.getElementById('fileList');
+            fileList.innerHTML = '';
+            
+            selectedFiles.forEach((file, index) => {
+                const fileSize = (file.size / 1024 / 1024).toFixed(2);
+                const fileIcon = getFileIcon(file.type);
+                
+                const fileItem = document.createElement('div');
+                fileItem.className = 'file-item bg-white/10 rounded-lg p-3 flex items-center justify-between';
+                fileItem.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <span class="text-2xl">${fileIcon}</span>
+                        <div>
+                            <p class="font-medium text-sm truncate max-w-xs">${file.name}</p>
+                            <p class="text-xs text-white/60">${fileSize} MB</p>
+                        </div>
+                    </div>
+                    <button type="button" onclick="removeFile(${index})" class="text-red-400 hover:text-red-300 transition">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                `;
+                fileList.appendChild(fileItem);
+            });
+        }
+
+        // Obtener ícono según tipo de archivo
+        function getFileIcon(fileType) {
+            if (fileType.includes('image')) return '🖼️';
+            if (fileType.includes('pdf')) return '📄';
+            if (fileType.includes('word')) return '📝';
+            if (fileType.includes('excel')) return '📊';
+            return '📎';
+        }
+
+        // Eliminar archivo
+        function removeFile(index) {
+            selectedFiles.splice(index, 1);
+            renderFileList();
+            
+            if (selectedFiles.length === 0) {
+                document.getElementById('uploadContent').innerHTML = `
+                    <svg class="mx-auto h-16 w-16 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                    </svg>
+                    <p class="mt-3 text-white font-medium">Haz clic para subir o arrastra tus archivos aquí</p>
+                    <p class="mt-1 text-sm text-white/60">Imágenes, PDF, Word o Excel (Máx. 10MB cada uno)</p>
+                    <p class="mt-2 text-xs text-yellow-300">⚠️ Los archivos se enviarán por WhatsApp después de hacer clic en "Enviar Pedido"</p>
+                `;
+            }
+        }
+
+        // Drag and drop
+        const uploadZone = document.getElementById('uploadZone');
+        
+        uploadZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadZone.classList.add('dragover');
+        });
+        
+        uploadZone.addEventListener('dragleave', () => {
+            uploadZone.classList.remove('dragover');
+        });
+        
+        uploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadZone.classList.remove('dragover');
+            handleFiles(e.dataTransfer.files);
+        });
+
         // Event listeners para actualizar resumen
         document.getElementById('productType').addEventListener('change', updateSummary);
         document.getElementById('quantity').addEventListener('input', updateSummary);
@@ -567,31 +717,43 @@
             const price = productPrices[product] || 0;
             const total = price * parseInt(quantity);
             const productSpec = productSpecs[product] || '';
+            
+            // Información de archivos
+            const hasFiles = selectedFiles.length > 0;
+            const fileNames = selectedFiles.map(f => f.name).join(', ');
+            const fileCount = selectedFiles.length;
 
             // Construir mensaje para WhatsApp
-            const message = `🛒 *NUEVO PEDIDO - LIBRERÍA CENTRAL* 🛒%0A%0A` +
-                           `👤 *Cliente:* ${name}%0A` +
-                           `📱 *Teléfono:* ${phone}%0A` +
-                           `📧 *Email:* ${email}%0A%0A` +
-                           `━━━━━━━━━━━━━━━━━━%0A` +
-                           `📦 *DETALLES DEL PEDIDO:*%0A` +
-                           `━━━━━━━━━━━━━━━━━━%0A%0A` +
-                           `🔹 *Producto:* ${product}%0A` +
-                           `📋 *Especificaciones:* ${productSpec}%0A` +
-                           `✏️ *Texto/Campos:* "${specs}"%0A` +
-                           `🔢 *Cantidad:* ${quantity} talonario(s)%0A%0A` +
-                           `💰 *VALOR UNITARIO:* ${formatPrice(price)}%0A` +
-                           `💰 *TOTAL ESTIMADO:* ${formatPrice(total)}%0A%0A` +
-                           `━━━━━━━━━━━━━━━━━━%0A` +
-                           `✅ Quedo atento a confirmación, diseño y datos de pago.%0A` +
-                           `📍 Retiro en tienda o despacho a coordinar.`;
+            let message = `🛒 *NUEVO PEDIDO - LIBRERÍA CENTRAL* 🛒%0A%0A` +
+                         `👤 *Cliente:* ${name}%0A` +
+                         `📱 *Teléfono:* ${phone}%0A` +
+                         `📧 *Email:* ${email}%0A%0A` +
+                         `━━━━━━━━━━━━━━━━━━%0A` +
+                         `📦 *DETALLES DEL PEDIDO:*%0A` +
+                         `━━━━━━━━━━━━━━━━━━%0A%0A` +
+                         `🔹 *Producto:* ${product}%0A` +
+                         `📋 *Especificaciones:* ${productSpec}%0A` +
+                         `✏️ *Texto/Campos:* "${specs}"%0A` +
+                         `🔢 *Cantidad:* ${quantity} talonario(s)%0A%0A` +
+                         `💰 *VALOR UNITARIO:* ${formatPrice(price)}%0A` +
+                         `💰 *TOTAL ESTIMADO:* ${formatPrice(total)}%0A`;
+            
+            if (hasFiles) {
+                message += `%0A━━━━━━━━━━━━━━━━━━%0A` +
+                          `📎 *ARCHIVOS ADJUNTOS:* ${fileCount}%0A` +
+                          `📁 ${fileNames}%0A` +
+                          `⚠️ *El cliente enviará los archivos en este chat*`;
+            }
+            
+            message += `%0A%0A━━━━━━━━━━━━━━━━━━%0A` +
+                      `✅ Quedo atento a confirmación, diseño y datos de pago.%0A` +
+                      `📍 Retiro en tienda o despacho a coordinar.`;
 
             const whatsappUrl = `https://wa.me/${ADMIN_PHONE}?text=${message}`;
 
             // Preparar email para copia
             const emailSubject = encodeURIComponent(`🛒 Nuevo Pedido Web - ${name} - ${product}`);
-            const emailBody = encodeURIComponent(
-                `PEDIDO DESDE SITIO WEB - LIBRERÍA CENTRAL\n` +
+            let emailBodyText = `PEDIDO DESDE SITIO WEB - LIBRERÍA CENTRAL\n` +
                 `==========================================\n\n` +
                 `👤 DATOS DEL CLIENTE:\n` +
                 `Nombre: ${name}\n` +
@@ -601,14 +763,21 @@
                 `Producto: ${product}\n` +
                 `Especificaciones: ${productSpec}\n` +
                 `Texto/Campos solicitados: "${specs}"\n` +
-                `Cantidad: ${quantity} talonario(s)\n\n` +
-                `💰 VALORES:\n` +
+                `Cantidad: ${quantity} talonario(s)\n\n`;
+            
+            if (hasFiles) {
+                emailBodyText += `📎 ARCHIVOS ADJUNTOS: ${fileCount}\n${fileNames}\n` +
+                                `(El cliente enviará los archivos por WhatsApp)\n\n`;
+            }
+            
+            emailBodyText += `💰 VALORES:\n` +
                 `Valor unitario: ${formatPrice(price)}\n` +
                 `TOTAL ESTIMADO: ${formatPrice(total)}\n\n` +
                 `==========================================\n` +
                 `Pedido generado desde sitio web.\n` +
-                `Contactar al cliente para confirmar diseño y pago.`
-            );
+                `Contactar al cliente para confirmar diseño y pago.`;
+            
+            const emailBody = encodeURIComponent(emailBodyText);
 
             // Efecto en botón
             const btn = document.getElementById('whatsappBtn');
@@ -643,7 +812,16 @@
             }, 1500);
 
             // Mensaje de confirmación
-            alert('✅ ¡Tu pedido está listo para enviar!\n\n1️⃣ Se abrirá WhatsApp con todos los detalles\n2️⃣ Se abrirá tu correo para enviar copia a la tienda\n\n📌 Por favor envía AMBOS mensajes para confirmar tu pedido.\n\n¡Gracias por elegir Librería Central! 🎉');
+            let fileAlert = hasFiles ? 
+                `\n\n📎 Tienes ${fileCount} archivo(s) seleccionado(s).\n⚠️ **NO OLVIDES ADJUNTARLOS EN EL CHAT DE WHATSAPP**.` :
+                '\n\n💡 Si tienes un formato o diseño, puedes adjuntarlo en el chat de WhatsApp.';
+            
+            alert('✅ ¡Tu pedido está listo para enviar!' + fileAlert +
+                '\n\n1️⃣ Se abrirá WhatsApp con todos los detalles' +
+                '\n2️⃣ Se abrirá tu correo para enviar copia a la tienda' +
+                '\n3️⃣ **Adjunta tus archivos en el chat de WhatsApp**' +
+                '\n\n📌 Por favor envía AMBOS mensajes para confirmar tu pedido.' +
+                '\n\n¡Gracias por elegir Librería Central! 🎉');
         }
 
         // Inicializar
@@ -653,3 +831,4 @@
     </script>
 </body>
 </html>
+
