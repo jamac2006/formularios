@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Librería Central - Formularios y Talonarios Personalizados</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fontsource.org/roboto/400.css" rel="stylesheet">
+    <link href="https://fontsource.org/roboto/700.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8fafc;
+        }
+        .gradient-header {
+            background: linear-gradient(135deg, #f59e0b 0%, #ef4444 50%, #8b5cf6 100%);
+        }
+        .gradient-card {
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .btn-pulse {
+            animation: pulse-green 2s infinite;
+        }
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(34, 197, 94, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        }
+        .price-tag {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+        .size-badge {
+            background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Header -->
+    <header class="gradient-header text-white shadow-xl sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-3 md:mb-0 text-center md:text-left">
+                    <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">🖨️ Librería Central</h1>
+                    <p class="text-sm opacity-95 mt-1">Formularios y Talonarios Personalizados</p>
+                </div>
+                <div class="text-sm text-center md:text-right bg-white/20 p-3 rounded-xl backdrop-blur-sm">
+                    <p class="font-semibold">📍 Puerto Montt</p>
+                    <p>Calle Urmeneta #300, Galería Caracol Local 15</p>
+                    <p class="mt-2 font-bold">📱 +569 78 47 2489</p>
+                    <p>📧 fta.tecno@gmail.com</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="py-10 bg-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-orange-500 via-red-500 to-purple-600 mb-4">
+                📋 Tus Formularios a Medida
+            </h2>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                Fabricamos <strong>órdenes de trabajo, guías de despacho, comprobantes, recetas médicas</strong> y más. 
+                Elige tamaño, tipo de papel y cantidad. ¡Tu pedido llega directo a tu WhatsApp!
+            </p>
+        </div>
+    </section>
+
+    <!-- Info Cards -->
+    <section class="py-6 bg-gradient-to-r from-yellow-50 to-pink-50">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-white p-4 rounded-xl shadow text-center">
+                    <span class="text-3xl">📄</span>
+                    <p class="font-semibold text-sm mt-2">Simple, Duplicado o Triplicado</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow text-center">
+                    <span class="text-3xl">✏️</span>
+                    <p class="font-semibold text-sm mt-2">Texto Personalizado</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow text-center">
+                    <span class="text-3xl">🚀</span>
+                    <p class="font-semibold text-sm mt-2">Entrega Rápida</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow text-center">
+                    <span class="text-3xl">💬</span>
+                    <p class="font-semibold text-sm mt-2">Pedido por WhatsApp</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Catalog -->
+    <section class="py-12 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h3 class="text-3xl font-bold text-gray-800 mb-8 text-center">
+                <span class="gradient-card text-white px-4 py-2 rounded-full">Catálogo de Talonarios</span>
+            </h3>
+
+            <!-- Size Categories -->
+            <div class="space-y-12">
+
+                <!-- 1/4 Carta -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <div class="size-badge text-white px-6 py-4">
+                        <h4 class="text-xl font-bold">📐 Tamaño 1/4 Carta (10x14 cm)</h4>
+                    </div>
+                    <div class="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        
+                        <!-- Product Item -->
+                        <div class="border-2 border-gray-100 rounded-xl p-4 card-hover transition-all cursor-pointer hover:border-purple-400" onclick="selectProduct('1/4 Carta - Original', '100 hojas solo Original Blanca', 6990)">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="font-bold text-gray-800">Original</span>
+                                <span class="price-tag text-white text-sm font-bold px-3 py-1 rounded-full">$6.990</span>
+                            </div>
+                            <p class="text-gray-600 text-sm">100 hojas solo Original Blanca</p>
+                            <button class="mt-3 w-full bg-purple-100 text-purple-700 font-semibold py-1.5 rounded-lg text-sm hover:bg-purple-200 transition">Seleccionar</button>
+                        </div>
+
+                        <div class="border-2 border-gray-100 rounded-xl p-4 card-hover transition-all cursor-pointer hover:border-purple-400" onclick="selectProduct('1/4 Carta - Duplicado', '100 Hojas (50 Original + 50 Copia)', 7990)">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="font-bold text-gray-800">Duplicado</span>
+                                <span class="price-tag text-white text-sm font-bold px-3 py-1 rounded-full">$7.990</span>
+                            </div>
+                            <p class="text-gray-600 text-sm">100 Hojas (50 Original + 50 Copia)</p>
+                            <button class="mt-3 w-full bg-purple-100 text-purple-700 font-semibold py-1.5 rounded-lg text-sm hover:bg-purple-200 transition">Seleccionar</button>
+                        </div>
+
+                        <div class="border-2 border-gray-100 rounded-xl p-4 card-hover transition-all cursor-pointer hover:border-purple-400" onclick="selectProduct('1/4 Carta - Duplicado', '200 Hojas (100 Original + 100 Copias)', 12990)">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="font-bold text-gray-800">Duplicado</span>
+                                <span class="price-tag text-white text-sm font-bold px-3 py-1 rounded-full">$12.990</span>
+                            </div>
+                            <p class="text-gray-600 text-sm">200 Hojas (100 Original + 100 Copias)</p>
+                            <button class="mt-3 w-full bg-purple-100 text-purple-700 font-semibold py-1.5 rounded-lg text-sm hover:bg-purple-200 transition">Seleccionar</button>
+                        </div>
+
+                        <div class="border-2 border-gray-100 rounded-xl p-4 card-hover transition-all cursor-pointer hover:border-purple-400" onclick="selectProduct('1/4 Carta - Triplicado', '150 hojas (50 Original + 50 Duplicado + 50 Triplicado)', 14990)">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="font-bold text-gray-800">Triplicado</span>
+                                <span class="price-tag text-white text-sm font-bold px-3 py-1 rounded-full">$14.990</span>
+                            </div>
+                            <p class="text-gray-600 text-sm">150 hojas (50+50+50)</p>
+                            <button class="mt-3 w-full bg-purple-100 text-purple-700 font-semibold py-1.5 rounded-lg text-sm hover:bg-purple-200 transition">Seleccionar</button>
+                        </div>
+
+                        <div class="border-2 border-gray-100 rounded-xl p-4 card-hover transition-all cursor-pointer hover:border-purple-400" onclick="selectProduct('1/4 Carta - Triplicado', '300 hojas (100 Original + 100 Duplicado + 100 Triplicado)', 18990)">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="font-bold text-gray-800">Triplicado</span>
+                                <span class="price-tag text-white text-sm font-bold px-3 py-1 rounded-full">$18.990</span>
+                            </div>
+                            <p class="text-gray-600 text-sm">300 hojas (100+100+100)</p>
+                            <button class="mt-3 w-full bg-purple-100 text-purple-700 font-semibold py-1.5 rounded-lg text-sm hover:bg-purple-200 transition">Seleccionar</button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- 1/2 Carta -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <div class="size-badge text-white px-6 py-4">
+                        <h4 class="text-xl font-bold">📐 Tamaño 1/2 Carta (14x20 cm)</h4>
+                    </div>
+                    <div class="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        
+                        <div class="border-2 border-gray-100 rounded-xl p-4 card-hover transition-all cursor-pointer hover:border-purple-400" onclick="selectProduct('1/2 Carta - Original', '100 hojas solo Original Blanca', 12990)">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="font-bold text-gray-800">Original</span>
+                                <span class="price-tag text-white text-sm font-bold px-3 py-1 rounded-full">$12.990</span>
+                            </div>
+                            <p class="text-gray-600 text-sm">100 hojas solo Original Blanca</p>
+                            <button class="mt-3 w-full bg-purple-100 text-purple-700 font-semibold py-1.5 rounded-lg text-sm hover:bg-purple-200 transition">Seleccionar</button>
+                        </div>
+
+                        <div class="border-2 border-gray-100 rounded-xl p-4 card-hover transition-all cursor-pointer hover:border-purple-400" onclick="selectProduct('1/2 Carta - Duplicado', '100 Hojas (50 Original + 50 Copia)', 14990)">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="font-bold text-gray-800">Duplicado</span>
+                                <span class="price-tag text-white text-sm font-bold px-3 py-1 rounded-full">$14.990</span>
+                            </div>
+                            <p class="text-gray-600 text-sm">100 Hojas (50 Original + 50 Copia)</p>
+                            <button class="mt-3 w-full bg-purple-100 text-purple-700 font-semibold py-1.5 rounded-lg text-sm hover:bg-purple-200 transition">Seleccionar</button>
+                        </div>
+
+                        <div class="border-2 border-gray-100 rounded-xl p-4 card-hover transition-all cursor-pointer hover:border-purple-400" onclick="selectProduct('1/2 Carta - Duplicado', '200 Hojas (100 Original + 100 Copias)', 18990)">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="font-bold text-gray-800">Duplicado</span>
+                                <span class="price-tag text-white text-sm font-bold px-3 py-1 rounded-full">$18.990</span>
+                            </div>
+                            <p class="text-gray-600 text-sm">200 Hojas (100 Original + 100 Copias)</p>
+                            <button class="mt-3 w-full bg-purple-100 text-purple-700 font-semibold py-1.5 rounded-lg text-sm hover:bg-purple-200 transition">Seleccionar</button>
+                        </div>
+
+                        <div class="border-2 border-gray-100 rounded-xl p-4 card-hover transition-all cursor-pointer hover:border-purple-400" onclick="selectProduct('1/2 Carta - Triplicado', '150 hojas (50 Original + 50 Duplicado + 50 Triplicado)', 24990)">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="font-bold text-gray-800">Triplicado</span>
+                                <span class="price-tag text-white text-sm font-bold px-3 py-1 rounded-full">$24.990</span>
+                            </div>
+                            <p class="text-gray-600 text-sm">150 hojas (50+50+50)</p>
+                            <button class="mt-3 w-full bg-purple-100 text-purple-700 font-semibold py-1.5 rounded-lg text-sm hover:bg-purple-200 transition">Seleccionar</button>
+                        </div>
+
+                        <div class="border-2 border-gray-100 rounded-xl p-4 card-hover transition-all cursor-pointer hover:border-purple-400" onclick="selectProduct('1/2 Carta - Triplicado', '300 hojas (100 Original + 100 Duplicado + 100 Triplicado)', 29990)">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="font-bold text-gray-800">Triplicado</span>
+                                <span class="price-tag text-white text-sm font-bold px-3 py-1 rounded-full">$29.990</span>
+                            </div>
+                            <p class="text-gray-600 text-sm">300 hojas (100+100+100)</p>
+                            <button class="mt-3 w-full bg-purple-100 text-purple-700 font-semibold py-1.5 rounded-lg text-sm hover:bg-purple-200 transition">Seleccionar</button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Carta -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <div class="size-badge text-white px-6 py-4">
+                        <h4 class="text-xl font-bold">📐 Tamaño Carta (21x27 cm)</h4>
+                    </div>
+                    <div class="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        
+                        <div class="border-2 border-gray-100 rounded-xl p-4 card-hover transition-all cursor-pointer hover:border-purple-400" onclick="selectProduct('Carta - Original', '100 hojas solo Original Blanca', 12990)">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="font-bold text-gray-800">Original</span>
+                                <span class="price-tag text-white text-sm font-bold px-3 py-1 rounded-full">$12.990</span>
+                            </div>
+                            <p class="text-gray-600 text-sm">100 hojas solo Original Blanca</p>
+                            <button class="mt-3 w-full bg-purple-100 text-purple-700 font-semibold py-1.5 rounded-lg text-sm hover:bg-purple-200 transition">Seleccionar</button>
+                        </div>
+
+                        <div class="border-2 border-gray-100 rounded-xl p-4 card-hover transition-all cursor-pointer hover:border-purple-400" onclick="selectProduct('Carta - Duplicado', '100 Hojas (50 Original + 50 Copia)', 18990)">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="font-bold text-gray-800">Duplicado</span>
+                                <span class="price-tag text-white text-sm font-bold px-3 py-1 rounded-full">$18.990</span>
+                            </div>
+                            <p class="text-gray-600 text-sm">100 Hojas (50 Original + 50 Copia)</p>
+                            <button class="mt-3 w-full bg-purple-100 text-purple-700 font-semibold py-1.5 rounded-lg text-sm hover:bg-purple-200 transition">Seleccionar</button>
+                        </div>
+
+                        <div class="border-2 border-gray-100 rounded-xl p-4 card-hover transition-all cursor-pointer hover:border-purple-400" onclick="selectProduct('Carta - Duplicado', '200 Hojas (100 Original + 100 Copias)', 24990)">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="font-bold text-gray-800">Duplicado</span>
+                                <span class="price-tag text-white text-sm font-bold px-3 py-1 rounded-full">$24.990</span>
+                            </div>
+                            <p class="text-gray-600 text-sm">200 Hojas (100 Original + 100 Copias)</p>
+                            <button class="mt-3 w-full bg-purple-100 text-purple-700 font-semibold py-1.5 rounded-lg text-sm hover:bg-purple-200 transition">Seleccionar</button>
+                        </div>
+
+                        <div class="border-2 border-gray-100 rounded-xl p-4 card-hover transition-all cursor-pointer hover:border-purple-400" onclick="selectProduct('Carta - Triplicado', '150 hojas (50 Original + 50 Duplicado + 50 Triplicado)', 28990)">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="font-bold text-gray-800">Triplicado</span>
+                                <span class="price-tag text-white text-sm font-bold px-3 py-1 rounded-full">$28.990</span>
+                            </div>
+                            <p class="text-gray-600 text-sm">150 hojas (50+50+50)</p>
+                            <button class="mt-3 w-full bg-purple-100 text-purple-700 font-semibold py-1.5 rounded-lg text-sm hover:bg-purple-200 transition">Seleccionar</button>
+                        </div>
+
+                        <div class="border-2 border-gray-100 rounded-xl p-4 card-hover transition-all cursor-pointer hover:border-purple-400" onclick="selectProduct('Carta - Triplicado', '300 hojas (100 Original + 100 Duplicado + 100 Triplicado)', 32990)">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="font-bold text-gray-800">Triplicado</span>
+                                <span class="price-tag text-white text-sm font-bold px-3 py-1 rounded-full">$32.990</span>
+                            </div>
+                            <p class="text-gray-600 text-sm">300 hojas (100+100+100)</p>
+                            <button class="mt-3 w-full bg-purple-100 text-purple-700 font-semibold py-1.5 rounded-lg text-sm hover:bg-purple-200 transition">Seleccionar</button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Oficio -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <div class="size-badge text-white px-6 py-4">
+                        <h4 class="text-xl font-bold">📐 Tamaño Oficio (21x32 cm)</h4>
+                    </div>
+                    <div class="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        
+                        <div class="border-2 border-gray-100 rounded-xl p-4 card-hover transition-all cursor-pointer hover:border-purple-400" onclick="selectProduct('Oficio - Original', '100 hojas solo Original Blanca', 13990)">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="font-bold text-gray-800">Original</span>
+                                <span class="price-tag text-white text-sm font-bold px-3 py-1 rounded-full">$13.990</span>
+                            </div>
+                            <p class="text-gray-600 text-sm">100 hojas solo Original Blanca</p>
+                            <button class="mt-3 w-full bg-purple-100 text-purple-700 font-semibold py-1.5 rounded-lg text-sm hover:bg-purple-200 transition">Seleccionar</button>
+                        </div>
+
+                        <div class="border-2 border-gray-100 rounded-xl p-4 card-hover transition-all cursor-pointer hover:border-purple-400" onclick="selectProduct('Oficio - Duplicado', '100 Hojas (50 Original + 50 Copia)', 19990)">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="font-bold text-gray-800">Duplicado</span>
+                                <span class="price-tag text-white text-sm font-bold px-3 py-1 rounded-full">$19.990</span>
+                            </div>
+                            <p class="text-gray-600 text-sm">100 Hojas (50 Original + 50 Copia)</p>
+                            <button class="mt-3 w-full bg-purple-100 text-purple-700 font-semibold py-1.5 rounded-lg text-sm hover:bg-purple-200 transition">Seleccionar</button>
+                        </div>
+
+                        <div class="border-2 border-gray-100 rounded-xl p-4 card-hover transition-all cursor-pointer hover:border-purple-400" onclick="selectProduct('Oficio - Duplicado', '200 Hojas (100 Original + 100 Copias)', 26990)">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="font-bold text-gray-800">Duplicado</span>
+                                <span class="price-tag text-white text-sm font-bold px-3 py-1 rounded-full">$26.990</span>
+                            </div>
+                            <p class="text-gray-600 text-sm">200 Hojas (100 Original + 100 Copias)</p>
+                            <button class="mt-3 w-full bg-purple-100 text-purple-700 font-semibold py-1.5 rounded-lg text-sm hover:bg-purple-200 transition">Seleccionar</button>
+                        </div>
+
+                        <div class="border-2 border-gray-100 rounded-xl p-4 card-hover transition-all cursor-pointer hover:border-purple-400" onclick="selectProduct('Oficio - Triplicado', '150 hojas (50 Original + 50 Duplicado + 50 Triplicado)', 29990)">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="font-bold text-gray-800">Triplicado</span>
+                                <span class="price-tag text-white text-sm font-bold px-3 py-1 rounded-full">$29.990</span>
+                            </div>
+                            <p class="text-gray-600 text-sm">150 hojas (50+50+50)</p>
+                            <button class="mt-3 w-full bg-purple-100 text-purple-700 font-semibold py-1.5 rounded-lg text-sm hover:bg-purple-200 transition">Seleccionar</button>
+                        </div>
+
+                        <div class="border-2 border-gray-100 rounded-xl p-4 card-hover transition-all cursor-pointer hover:border-purple-400" onclick="selectProduct('Oficio - Triplicado', '300 hojas (100 Original + 100 Duplicado + 100 Triplicado)', 34990)">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="font-bold text-gray-800">Triplicado</span>
+                                <span class="price-tag text-white text-sm font-bold px-3 py-1 rounded-full">$34.990</span>
+                            </div>
+                            <p class="text-gray-600 text-sm">300 hojas (100+100+100)</p>
+                            <button class="mt-3 w-full bg-purple-100 text-purple-700 font-semibold py-1.5 rounded-lg text-sm hover:bg-purple-200 transition">Seleccionar</button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Receta Médica -->
+                <div class="bg-gradient-to-r from-red-500 to-pink-600 rounded-2xl shadow-lg overflow-hidden text-white">
+                    <div class="px-6 py-4 flex items-center gap-3">
+                        <span class="text-3xl">🩺</span>
+                        <h4 class="text-xl font-bold">TALONARIO RECETA MÉDICA</h4>
+                    </div>
+                    <div class="p-6 bg-white/10">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="border-2 border-white/30 rounded-xl p-4 card-hover transition-all cursor-pointer hover:border-white" onclick="selectProduct('Receta Médica', '100 hojas - Formato estándar', 9990)">
+                                <div class="flex justify-between items-start mb-2">
+                                    <span class="font-bold">Receta Médica Estándar</span>
+                                    <span class="bg-white text-red-600 text-sm font-bold px-3 py-1 rounded-full">$9.990</span>
+                                </div>
+                                <p class="text-white/90 text-sm">100 hojas - Formato profesional para recetas médicas</p>
+                                <button class="mt-3 w-full bg-white text-red-600 font-semibold py-1.5 rounded-lg text-sm hover:bg-gray-100 transition">Seleccionar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Form Section -->
+    <section id="order-section" class="py-16 bg-white">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="gradient-card rounded-3xl shadow-2xl p-8 text-white">
+                <h3 class="text-3xl font-bold text-center mb-2">📝 Realiza tu Pedido</h3>
+                <p class="text-center text-white/90 mb-8">Completa el formulario y te redireccionaremos a WhatsApp para confirmar tu orden.</p>
+
+                <form id="orderForm" onsubmit="handleOrder(event)" class="space-y-6">
+                    
+                    <!-- Datos del Cliente -->
+                    <div class="bg-white/10 rounded-2xl p-6">
+                        <h4 class="font-bold text-lg mb-4 flex items-center gap-2">👤 Datos del Cliente</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium mb-1">Nombre Completo *</label>
+                                <input type="text" id="name" required class="w-full px-4 py-2.5 rounded-lg bg-white/20 border border-white/30 focus:ring-2 focus:ring-white focus:border-transparent outline-none text-white placeholder-white/70" placeholder="Tu nombre">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-1">Teléfono *</label>
+                                <input type="tel" id="phone" required class="w-full px-4 py-2.5 rounded-lg bg-white/20 border border-white/30 focus:ring-2 focus:ring-white focus:border-transparent outline-none text-white placeholder-white/70" placeholder="+569...">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-1">Correo Electrónico *</label>
+                                <input type="email" id="email" required class="w-full px-4 py-2.5 rounded-lg bg-white/20 border border-white/30 focus:ring-2 focus:ring-white focus:border-transparent outline-none text-white placeholder-white/70" placeholder="tu@correo.com">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Selección del Producto -->
+                    <div class="bg-white/10 rounded-2xl p-6">
+                        <h4 class="font-bold text-lg mb-4 flex items-center gap-2">📦 Detalles del Pedido</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium mb-1">Tipo de Talonario *</label>
+                                <select id="productType" required class="w-full px-4 py-2.5 rounded-lg bg-white/20 border border-white/30 focus:ring-2 focus:ring-white focus:border-transparent outline-none text-white">
+                                    <option value="" disabled selected>Selecciona un producto...</option>
+                                    <option value="1/4 Carta - Original">1/4 Carta - Original</option>
+                                    <option value="1/4 Carta - Duplicado">1/4 Carta - Duplicado</option>
+                                    <option value="1/4 Carta - Triplicado">1/4 Carta - Triplicado</option>
+                                    <option value="1/2 Carta - Original">1/2 Carta - Original</option>
+                                    <option value="1/2 Carta - Duplicado">1/2 Carta - Duplicado</option>
+                                    <option value="1/2 Carta - Triplicado">1/2 Carta - Triplicado</option>
+                                    <option value="Carta - Original">Carta - Original</option>
+                                    <option value="Carta - Duplicado">Carta - Duplicado</option>
+                                    <option value="Carta - Triplicado">Carta - Triplicado</option>
+                                    <option value="Oficio - Original">Oficio - Original</option>
+                                    <option value="Oficio - Duplicado">Oficio - Duplicado</option>
+                                    <option value="Oficio - Triplicado">Oficio - Triplicado</option>
+                                    <option value="Receta Médica">Receta Médica</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-1">Cantidad de Talonarios *</label>
+                                <input type="number" id="quantity" min="1" value="1" required class="w-full px-4 py-2.5 rounded-lg bg-white/20 border border-white/30 focus:ring-2 focus:ring-white focus:border-transparent outline-none text-white">
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <label class="block text-sm font-medium mb-1">Descripción / Especificaciones *</label>
+                            <textarea id="specs" required rows="3" class="w-full px-4 py-2.5 rounded-lg bg-white/20 border border-white/30 focus:ring-2 focus:ring-white focus:border-transparent outline-none text-white placeholder-white/70" placeholder="Ej: Orden de trabajo para taller mecánico, incluir logo, campos: fecha, cliente, servicio, valor, firma..."></textarea>
+                            <p class="text-xs text-white/70 mt-1">* Describe el texto, logo o campos que necesitas en tu talonario</p>
+                        </div>
+                    </div>
+
+                    <!-- Resumen del Pedido -->
+                    <div class="bg-white/10 rounded-2xl p-6">
+                        <h4 class="font-bold text-lg mb-4 flex items-center gap-2">💰 Resumen</h4>
+                        <div class="flex flex-wrap gap-4 text-sm">
+                            <div>
+                                <span class="text-white/70">Producto:</span>
+                                <span id="summaryProduct" class="font-semibold ml-2">-</span>
+                            </div>
+                            <div>
+                                <span class="text-white/70">Precio unitario:</span>
+                                <span id="summaryPrice" class="font-semibold ml-2">$0</span>
+                            </div>
+                            <div>
+                                <span class="text-white/70">Cantidad:</span>
+                                <span id="summaryQty" class="font-semibold ml-2">1</span>
+                            </div>
+                            <div class="ml-auto">
+                                <span class="text-white/70">Total estimado:</span>
+                                <span id="summaryTotal" class="font-bold text-xl ml-2">$0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Botón de Envío -->
+                    <button type="submit" id="whatsappBtn" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-6 rounded-xl text-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-3 btn-pulse">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                        Enviar Pedido por WhatsApp
+                    </button>
+                    
+                    <p class="text-xs text-center text-white/70 mt-4">
+                        🔒 Tus datos están seguros. Al enviar, se abrirá WhatsApp con tu pedido y se generará una copia para tu correo y el nuestro.
+                    </p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-10">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+                <div>
+                    <h4 class="text-xl font-bold mb-4">🖨️ Librería Central</h4>
+                    <p class="text-gray-400 text-sm">Expertos en formularios y talonarios personalizados para tu negocio. Calidad y rapidez garantizada.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">📍 Ubicación</h4>
+                    <p class="text-gray-400 text-sm">Calle Urmeneta #300<br>Galería Caracol, Local 15<br>Puerto Montt, Chile</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">📞 Contacto</h4>
+                    <p class="text-gray-400 text-sm">📱 WhatsApp: +569 78 47 2489<br>📧 Email: fta.tecno@gmail.com<br>🕐 Lunes a Viernes: 9:00 - 19:00</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-6 text-center text-sm text-gray-500">
+                <p>© 2024 Librería Central - Puerto Montt. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Precios de productos
+        const productPrices = {
+            '1/4 Carta - Original': 6990,
+            '1/4 Carta - Duplicado': 7990,
+            '1/4 Carta - Triplicado': 14990,
+            '1/2 Carta - Original': 12990,
+            '1/2 Carta - Duplicado': 14990,
+            '1/2 Carta - Triplicado': 24990,
+            'Carta - Original': 12990,
+            'Carta - Duplicado': 18990,
+            'Carta - Triplicado': 28990,
+            'Oficio - Original': 13990,
+            'Oficio - Duplicado': 19990,
+            'Oficio - Triplicado': 29990,
+            'Receta Médica': 9990
+        };
+
+        const productSpecs = {
+            '1/4 Carta - Original': '100 hojas solo Original Blanca',
+            '1/4 Carta - Duplicado': '100 Hojas (50 Original + 50 Copia)',
+            '1/4 Carta - Triplicado': '150 hojas (50+50+50)',
+            '1/2 Carta - Original': '100 hojas solo Original Blanca',
+            '1/2 Carta - Duplicado': '100 Hojas (50 Original + 50 Copia)',
+            '1/2 Carta - Triplicado': '150 hojas (50+50+50)',
+            'Carta - Original': '100 hojas solo Original Blanca',
+            'Carta - Duplicado': '100 Hojas (50 Original + 50 Copia)',
+            'Carta - Triplicado': '150 hojas (50+50+50)',
+            'Oficio - Original': '100 hojas solo Original Blanca',
+            'Oficio - Duplicado': '100 Hojas (50 Original + 50 Copia)',
+            'Oficio - Triplicado': '150 hojas (50+50+50)',
+            'Receta Médica': '100 hojas - Formato estándar'
+        };
+
+        const ADMIN_PHONE = "56978472489";
+        const ADMIN_EMAIL = "fta.tecno@gmail.com";
+
+        // Función para seleccionar producto desde el catálogo
+        function selectProduct(productName, specs, price) {
+            document.getElementById('productType').value = productName;
+            updateSummary();
+            document.getElementById('order-section').scrollIntoView({ behavior: 'smooth' });
+            
+            // Efecto visual de selección
+            const btn = event.target.closest('button');
+            if(btn) {
+                btn.classList.add('bg-purple-300', 'scale-95');
+                setTimeout(() => btn.classList.remove('bg-purple-300', 'scale-95'), 200);
+            }
+        }
+
+        // Actualizar resumen del pedido
+        function updateSummary() {
+            const product = document.getElementById('productType').value;
+            const quantity = parseInt(document.getElementById('quantity').value) || 1;
+            const price = productPrices[product] || 0;
+            const total = price * quantity;
+
+            document.getElementById('summaryProduct').textContent = product || '-';
+            document.getElementById('summaryPrice').textContent = formatPrice(price);
+            document.getElementById('summaryQty').textContent = quantity;
+            document.getElementById('summaryTotal').textContent = formatPrice(total);
+        }
+
+        // Formatear precio
+        function formatPrice(price) {
+            return '$' + price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        }
+
+        // Event listeners para actualizar resumen
+        document.getElementById('productType').addEventListener('change', updateSummary);
+        document.getElementById('quantity').addEventListener('input', updateSummary);
+
+        // Manejar envío del formulario
+        function handleOrder(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const product = document.getElementById('productType').value;
+            const quantity = document.getElementById('quantity').value;
+            const specs = document.getElementById('specs').value.trim();
+
+            // Validaciones
+            if (!name || !phone || !email || !product || !specs) {
+                alert('⚠️ Por favor completa todos los campos obligatorios (*)');
+                return;
+            }
+
+            const price = productPrices[product] || 0;
+            const total = price * parseInt(quantity);
+            const productSpec = productSpecs[product] || '';
+
+            // Construir mensaje para WhatsApp
+            const message = `🛒 *NUEVO PEDIDO - LIBRERÍA CENTRAL* 🛒%0A%0A` +
+                           `👤 *Cliente:* ${name}%0A` +
+                           `📱 *Teléfono:* ${phone}%0A` +
+                           `📧 *Email:* ${email}%0A%0A` +
+                           `━━━━━━━━━━━━━━━━━━%0A` +
+                           `📦 *DETALLES DEL PEDIDO:*%0A` +
+                           `━━━━━━━━━━━━━━━━━━%0A%0A` +
+                           `🔹 *Producto:* ${product}%0A` +
+                           `📋 *Especificaciones:* ${productSpec}%0A` +
+                           `✏️ *Texto/Campos:* "${specs}"%0A` +
+                           `🔢 *Cantidad:* ${quantity} talonario(s)%0A%0A` +
+                           `💰 *VALOR UNITARIO:* ${formatPrice(price)}%0A` +
+                           `💰 *TOTAL ESTIMADO:* ${formatPrice(total)}%0A%0A` +
+                           `━━━━━━━━━━━━━━━━━━%0A` +
+                           `✅ Quedo atento a confirmación, diseño y datos de pago.%0A` +
+                           `📍 Retiro en tienda o despacho a coordinar.`;
+
+            const whatsappUrl = `https://wa.me/${ADMIN_PHONE}?text=${message}`;
+
+            // Preparar email para copia
+            const emailSubject = encodeURIComponent(`🛒 Nuevo Pedido Web - ${name} - ${product}`);
+            const emailBody = encodeURIComponent(
+                `PEDIDO DESDE SITIO WEB - LIBRERÍA CENTRAL\n` +
+                `==========================================\n\n` +
+                `👤 DATOS DEL CLIENTE:\n` +
+                `Nombre: ${name}\n` +
+                `Teléfono: ${phone}\n` +
+                `Email: ${email}\n\n` +
+                `📦 DETALLES DEL PEDIDO:\n` +
+                `Producto: ${product}\n` +
+                `Especificaciones: ${productSpec}\n` +
+                `Texto/Campos solicitados: "${specs}"\n` +
+                `Cantidad: ${quantity} talonario(s)\n\n` +
+                `💰 VALORES:\n` +
+                `Valor unitario: ${formatPrice(price)}\n` +
+                `TOTAL ESTIMADO: ${formatPrice(total)}\n\n` +
+                `==========================================\n` +
+                `Pedido generado desde sitio web.\n` +
+                `Contactar al cliente para confirmar diseño y pago.`
+            );
+
+            // Efecto en botón
+            const btn = document.getElementById('whatsappBtn');
+            const originalContent = btn.innerHTML;
+            btn.innerHTML = '⏳ Abriendo WhatsApp...';
+            btn.disabled = true;
+            btn.classList.remove('btn-pulse', 'bg-green-500');
+            btn.classList.add('bg-green-700');
+
+            // Abrir WhatsApp
+            setTimeout(() => {
+                window.open(whatsappUrl, '_blank');
+                
+                // Resetear botón
+                setTimeout(() => {
+                    btn.innerHTML = originalContent;
+                    btn.disabled = false;
+                    btn.classList.remove('bg-green-700');
+                    btn.classList.add('bg-green-500', 'btn-pulse');
+                }, 2000);
+            }, 500);
+
+            // Crear enlace mailto para copia de email
+            setTimeout(() => {
+                const mailtoLink = `mailto:${ADMIN_EMAIL}?subject=${emailSubject}&body=${emailBody}`;
+                const mailElement = document.createElement('a');
+                mailElement.href = mailtoLink;
+                mailElement.style.display = 'none';
+                document.body.appendChild(mailElement);
+                mailElement.click();
+                document.body.removeChild(mailElement);
+            }, 1500);
+
+            // Mensaje de confirmación
+            alert('✅ ¡Tu pedido está listo para enviar!\n\n1️⃣ Se abrirá WhatsApp con todos los detalles\n2️⃣ Se abrirá tu correo para enviar copia a la tienda\n\n📌 Por favor envía AMBOS mensajes para confirmar tu pedido.\n\n¡Gracias por elegir Librería Central! 🎉');
+        }
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', function() {
+            updateSummary();
+        });
+    </script>
+</body>
+</html>
